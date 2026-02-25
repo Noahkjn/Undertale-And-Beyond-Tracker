@@ -36,8 +36,8 @@ https://localhost:3000/
 This is your dashboard where all tracked stats will appear.
 
 ### 4. Connect Your Game
-1. Launch your Undertale (or compatible) game.
-2. In the tracker menu, press the **Track** button.
+1. Launch your Undertale And Beyond game.
+2. In the menu, press the **Track** button.
 3. Your game will attempt to send a connection request to the tracker server.
 4. Accept the request in the web app to start receiving live stats.
 
