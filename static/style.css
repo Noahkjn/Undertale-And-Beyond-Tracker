@@ -1,0 +1,30 @@
+/* Undertale Arcade Styling */
+body {
+    background-color: #000;
+    color: #FFF;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+a {
+    color: #D3B31A;
+}
+
+.header {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.polling {
+    font-size: 1.5em;
+}
+
+.stale {
+    color: red;
+}
