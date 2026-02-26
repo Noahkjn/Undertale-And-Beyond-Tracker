@@ -1,3 +1,5 @@
+# THE PROJECT IS NOT FINISHED AND YOU WILL NEED A SEPERATED UNDERTALE MOD TO RUN IT, THE MOD IS STILL IN DEVELOPMENT
+
 # Undertale-And-Beyond-Tracker
 
 Local web dashboard for tracking Undertale & Beyond stats in real time. Runs entirely on your machine.
