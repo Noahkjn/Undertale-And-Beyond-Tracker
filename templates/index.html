@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Undertale Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Undertale &amp; Beyond Tracker</h1>
+        <p class="subtitle">Local tracker dashboard</p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Session</h2>
+          <span id="status" class="status">Disconnected</span>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <button id="create-session" class="btn">Create Session</button>
+            <div class="input-group">
+              <label for="session-code">Session Code</label>
+              <input id="session-code" type="text" maxlength="6" placeholder="ABC123" />
+            </div>
+            <button id="connect-session" class="btn">Connect</button>
+          </div>
+          <div class="row info-row">
+            <div>
+              <div class="label">Join URL</div>
+              <div id="join-url" class="mono">Create a session to get a link.</div>
+            </div>
+            <button id="copy-join" class="btn btn-outline">Copy Link</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Live Stats</h2>
+          <span id="updated-at" class="muted">No data yet</span>
+        </div>
+        <div class="panel-body">
+          <div class="grid">
+            <div class="card">
+              <div class="label">HP</div>
+              <div id="stat-hp" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">LV</div>
+              <div id="stat-lv" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">EXP</div>
+              <div id="stat-exp" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">GOLD</div>
+              <div id="stat-gold" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">LOCATION</div>
+              <div id="stat-location" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">ITEMS</div>
+              <div id="stat-items" class="value">--</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Raw Payload</h2>
+          <span class="muted">Stored locally in tracker.db</span>
+        </div>
+        <div class="panel-body">
+          <pre id="raw-payload">{}</pre>
+        </div>
+      </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
