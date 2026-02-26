@@ -1,61 +1,80 @@
 # Undertale-And-Beyond-Tracker
 
-Welcome to **Undertale-And-Beyond-Tracker**, the ultimate companion for tracking your gameplay stats in *Undertale* and related fan projects! This tracker is built with **Python** and provides a sleek **web interface** to monitor your in-game progress in real-time.  
+Local web dashboard for tracking Undertale & Beyond stats in real time. Runs entirely on your machine.
 
 ---
 
 ## 🎮 Features
 
-- **Real-Time Game Tracking**: Monitor your HP, LV, EXP, and other vital stats while playing.
-- **Web-Based Dashboard**: View your stats in any browser via a local web app.
-- **Easy Game Integration**: Connect your game to the tracker with a single click.
-- **Cross-Platform Compatibility**: Works on Windows with Python installed.
-- **Safe & Local**: All data stays on your machine — no external servers required.
+- **Real-time stats**: HP, LV, EXP, Gold, Location, Items.
+- **Session codes**: Create a session and share a join link.
+- **Local-only**: SQLite storage in `tracker.db`.
+- **Simple setup**: One script to install deps and run.
 
 ---
 
 ## 🚀 Getting Started
 
-Follow these steps to get your Undertale Tracker up and running:
+### 1) Install Python
+Install **Python 3.10+** from https://www.python.org/downloads/
 
-### 1. Install Python
-Make sure you have **Python 3.10+** installed on your PC. You can download it from the [official Python website](https://www.python.org/downloads/).
+### 2) Start the tracker
 
-### 2. Launch the Tracker
-Run the `start.bat` file included in the repository. This will:
+**Windows**
+```bat
+start.bat
+```
 
-- Install all required Python dependencies.
-- Start the local web server that powers the tracker.
+**macOS / Linux**
+```bash
+chmod +x start.sh
+./start.sh
+```
 
-### 3. Open the Web App
-Once the server is running, open your preferred web browser and navigate to:  
+### 3) Open the dashboard
+Navigate to:
+```
+http://127.0.0.1:3000/
+```
 
-https://localhost:3000/
+### 4) Create or connect a session
+- Click **Create Session** to generate a code and join link.
+- Or enter an existing code and click **Connect**.
 
+---
 
-This is your dashboard where all tracked stats will appear.
+## 🔌 API Endpoints
 
-### 4. Connect Your Game
-1. Launch your Undertale And Beyond game.
-2. In the menu, press the **Track** button.
-3. Your game will attempt to send a connection request to the tracker server.
-4. Accept the request in the web app to start receiving live stats.
+- `POST /api/session/create` → create a session code
+- `GET /api/state?code=ABC123` → read the latest payload
+- `POST /api/update` → send payloads from the game
 
-### 5. Enjoy Tracking
-Once connected, your stats should appear in real-time. Monitor your health, level, experience, and more while playing.
+Example payload:
+```json
+{
+  "code": "ABC123",
+  "payload": {
+    "hp": 20,
+    "lv": 3,
+    "exp": 120,
+    "gold": 55,
+    "location": "Ruins",
+    "items": ["Stick", "Bandage"]
+  }
+}
+```
 
 ---
 
 ## 🛠️ Dependencies
 
-The tracker uses Python and several key libraries:
+- Flask (see `requirements.txt`)
 
-- `Flask` – for running the web server
-- `requests` – to handle HTTP connections between game and tracker
-- `json` – to process game data
-- Other dependencies listed in `requirements.txt`
+---
 
-You can install them manually using:
+## 📦 Project Structure
 
-```bash
-pip install -r requirements.txt
+- `app.py` — Flask server + SQLite storage
+- `templates/` — Dashboard HTML
+- `static/` — CSS/JS assets
+- `tracker.db` — Local data store (created at runtime)
