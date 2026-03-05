@@ -48,8 +48,16 @@
         <div class="panel-body">
           <div class="grid">
             <div class="card">
+              <div class="label">NAME</div>
+              <div id="stat-name" class="value">--</div>
+            </div>
+            <div class="card">
               <div class="label">HP</div>
               <div id="stat-hp" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">MAX HP</div>
+              <div id="stat-maxhp" class="value">--</div>
             </div>
             <div class="card">
               <div class="label">LV</div>
@@ -64,14 +72,95 @@
               <div id="stat-gold" class="value">--</div>
             </div>
             <div class="card">
+              <div class="label">AT</div>
+              <div id="stat-at" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">DF</div>
+              <div id="stat-df" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">WEAPON</div>
+              <div id="stat-weapon" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">ARMOR</div>
+              <div id="stat-armor" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">AREA</div>
+              <div id="stat-area" class="value">--</div>
+            </div>
+            <div class="card">
               <div class="label">LOCATION</div>
               <div id="stat-location" class="value">--</div>
             </div>
             <div class="card">
-              <div class="label">ITEMS</div>
-              <div id="stat-items" class="value">--</div>
+              <div class="label">ROUTE</div>
+              <div id="stat-route" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">KILLS</div>
+              <div id="stat-kills" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">PLAYTIME</div>
+              <div id="stat-playtime" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">FUN VALUE</div>
+              <div id="stat-fun" class="value">--</div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Inventory</h2>
+        </div>
+        <div class="panel-body">
+          <div class="label">Held Items</div>
+          <div id="stat-items" class="item-list">--</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Storage Boxes</h2>
+        </div>
+        <div class="panel-body">
+          <div class="box-grid">
+            <div>
+              <div class="label">Box A</div>
+              <div id="stat-box-a" class="item-list">--</div>
+            </div>
+            <div>
+              <div class="label">Box B</div>
+              <div id="stat-box-b" class="item-list">--</div>
+            </div>
+            <div>
+              <div class="label">Box C</div>
+              <div id="stat-box-c" class="item-list">--</div>
+            </div>
+            <div>
+              <div class="label">Box D</div>
+              <div id="stat-box-d" class="item-list">--</div>
+            </div>
+            <div>
+              <div class="label">Box E</div>
+              <div id="stat-box-e" class="item-list">--</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Persistent Data (undertale.ini)</h2>
+        </div>
+        <div class="panel-body">
+          <div id="stat-ini" class="ini-grid">--</div>
         </div>
       </section>
 

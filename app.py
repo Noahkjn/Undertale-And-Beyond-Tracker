@@ -1,4 +1,4 @@
-"""from __future__ import annotations
+from __future__ import annotations
 
 import json
 import os
@@ -125,14 +125,14 @@ def session_redirect(code: str):
     return redirect(f"/#/session/{code}")
 
 
-@app.route("/api/session/create", methods=["POST"])\
+@app.route("/api/session/create", methods=["POST"])
 def api_session_create():
     code = create_session()
     join_url = f"/session/{code}"
     return jsonify({"code": code, "joinUrl": join_url})
 
 
-@app.route("/api/state", methods=["GET"])\
+@app.route("/api/state", methods=["GET"])
 def api_state():
     code = request.args.get("code", "").strip().upper()
     if not code:
@@ -149,7 +149,7 @@ def api_state():
     )
 
 
-@app.route("/api/update", methods=["POST"])\
+@app.route("/api/update", methods=["POST"])
 def api_update():
     data = request.get_json(silent=True) or {}
     code = str(data.get("code", "")).strip().upper()
@@ -167,4 +167,3 @@ def api_update():
 if __name__ == "__main__":
     init_db()
     app.run(host="127.0.0.1", port=3000, debug=False)
-"""
