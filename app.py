@@ -1,4 +1,4 @@
-"""from __future__ import annotations
+from __future__ import annotations
 
 import json
 import os
@@ -16,19 +16,16 @@ DB_PATH = os.path.join(APP_DIR, "tracker.db")
 
 app = Flask(__name__)
 
-
 @dataclass
 class SessionState:
     code: str
     last_payload: Dict[str, Any]
     last_updated: Optional[int]
 
-
 def get_db() -> sqlite3.Connection:
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
-
 
 def init_db() -> None:
     conn = get_db()
@@ -57,11 +54,9 @@ def init_db() -> None:
     conn.commit()
     conn.close()
 
-
 def generate_code(length: int = 6) -> str:
     alphabet = string.ascii_uppercase + string.digits
     return "".join(secrets.choice(alphabet) for _ in range(length))
-
 
 def create_session() -> str:
     conn = get_db()
@@ -75,7 +70,6 @@ def create_session() -> str:
     conn.commit()
     conn.close()
     return code
-
 
 def get_session_state(code: str) -> Optional[SessionState]:
     conn = get_db()
@@ -92,7 +86,6 @@ def get_session_state(code: str) -> Optional[SessionState]:
     if row["last_payload"]:
         payload = json.loads(row["last_payload"])
     return SessionState(code=row["code"], last_payload=payload, last_updated=row["last_updated"])
-
 
 def update_session(code: str, payload: Dict[str, Any]) -> Optional[SessionState]:
     conn = get_db()
@@ -114,25 +107,21 @@ def update_session(code: str, payload: Dict[str, Any]) -> Optional[SessionState]
     conn.close()
     return get_session_state(code)
 
-
 @app.route("/")
 def index() -> str:
     return render_template("index.html")
-
 
 @app.route("/session/<code>")
 def session_redirect(code: str):
     return redirect(f"/#/session/{code}")
 
-
-@app.route("/api/session/create", methods=["POST"])\
+@app.route("/api/session/create", methods=["POST"])
 def api_session_create():
     code = create_session()
     join_url = f"/session/{code}"
     return jsonify({"code": code, "joinUrl": join_url})
 
-
-@app.route("/api/state", methods=["GET"])\
+@app.route("/api/state", methods=["GET"])
 def api_state():
     code = request.args.get("code", "").strip().upper()
     if not code:
@@ -148,8 +137,7 @@ def api_state():
         }
     )
 
-
-@app.route("/api/update", methods=["POST"])\
+@app.route("/api/update", methods=["POST"])
 def api_update():
     data = request.get_json(silent=True) or {}
     code = str(data.get("code", "")).strip().upper()
@@ -163,8 +151,6 @@ def api_update():
         return jsonify({"error": "Session not found"}), 404
     return jsonify({"ok": True, "lastUpdated": state.last_updated})
 
-
 if __name__ == "__main__":
     init_db()
     app.run(host="127.0.0.1", port=3000, debug=False)
-"""
