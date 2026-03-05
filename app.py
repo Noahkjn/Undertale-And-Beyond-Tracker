@@ -149,6 +149,18 @@ def api_state():
     )
 
 
+@app.route("/api/sessions/latest", methods=["GET"])
+def api_sessions_latest():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT code FROM sessions ORDER BY created_at DESC LIMIT 1")
+    row = cur.fetchone()
+    conn.close()
+    if not row:
+        return jsonify({"code": None})
+    return jsonify({"code": row["code"]})
+
+
 @app.route("/api/update", methods=["POST"])
 def api_update():
     data = request.get_json(silent=True) or {}

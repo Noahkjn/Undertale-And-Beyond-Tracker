@@ -18,24 +18,16 @@
 
       <section class="panel">
         <div class="panel-header">
-          <h2>Session</h2>
-          <span id="status" class="status">Disconnected</span>
+          <h2>Status</h2>
+          <span id="status" class="status">Starting...</span>
         </div>
         <div class="panel-body">
-          <div class="row">
-            <button id="create-session" class="btn">Create Session</button>
-            <div class="input-group">
-              <label for="session-code">Session Code</label>
-              <input id="session-code" type="text" maxlength="6" placeholder="ABC123" />
-            </div>
-            <button id="connect-session" class="btn">Connect</button>
-          </div>
           <div class="row info-row">
             <div>
-              <div class="label">Join URL</div>
-              <div id="join-url" class="mono">Create a session to get a link.</div>
+              <div class="label">Session</div>
+              <div id="session-display" class="mono">Auto-creating...</div>
             </div>
-            <button id="copy-join" class="btn btn-outline">Copy Link</button>
+            <span id="updated-at" class="muted">No data yet</span>
           </div>
         </div>
       </section>
@@ -43,7 +35,6 @@
       <section class="panel">
         <div class="panel-header">
           <h2>Live Stats</h2>
-          <span id="updated-at" class="muted">No data yet</span>
         </div>
         <div class="panel-body">
           <div class="grid">
