@@ -121,6 +121,33 @@ def api_session_create():
     join_url = f"/session/{code}"
     return jsonify({"code": code, "joinUrl": join_url})
 
+@app.route("/api/sessions/latest", methods=["GET"])
+def api_sessions_latest():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute(
+        """
+        SELECT code, last_updated, last_payload
+        FROM sessions
+        ORDER BY COALESCE(last_updated, created_at) DESC
+        LIMIT 1
+        """
+    )
+    row = cur.fetchone()
+    conn.close()
+    if not row:
+        return jsonify({"code": None})
+    payload = {}
+    if row["last_payload"]:
+        payload = json.loads(row["last_payload"])
+    return jsonify(
+        {
+            "code": row["code"],
+            "lastUpdated": row["last_updated"],
+            "payload": payload,
+        }
+    )
+
 @app.route("/api/state", methods=["GET"])
 def api_state():
     code = request.args.get("code", "").strip().upper()
