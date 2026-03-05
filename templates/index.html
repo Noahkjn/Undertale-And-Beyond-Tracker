@@ -19,24 +19,7 @@
       <section class="panel">
         <div class="panel-header">
           <h2>Session</h2>
-          <span id="status" class="status">Disconnected</span>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <button id="create-session" class="btn">Create Session</button>
-            <div class="input-group">
-              <label for="session-code">Session Code</label>
-              <input id="session-code" type="text" maxlength="6" placeholder="ABC123" />
-            </div>
-            <button id="connect-session" class="btn">Connect</button>
-          </div>
-          <div class="row info-row">
-            <div>
-              <div class="label">Join URL</div>
-              <div id="join-url" class="mono">Create a session to get a link.</div>
-            </div>
-            <button id="copy-join" class="btn btn-outline">Copy Link</button>
-          </div>
+          <span id="status" class="status">Connecting…</span>
         </div>
       </section>
 
@@ -62,6 +45,14 @@
             <div class="card">
               <div class="label">GOLD</div>
               <div id="stat-gold" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">PLAYTIME</div>
+              <div id="stat-playtime" class="value">--</div>
+            </div>
+            <div class="card">
+              <div class="label">FUN VALUE</div>
+              <div id="stat-fun-value" class="value">--</div>
             </div>
             <div class="card">
               <div class="label">LOCATION</div>
