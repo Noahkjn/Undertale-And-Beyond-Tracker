@@ -1,12 +1,8 @@
 const STATUS_STALE_SECONDS = 6;
 const statusEl = document.getElementById("status");
 const updatedEl = document.getElementById("updated-at");
-const joinUrlEl = document.getElementById("join-url");
+const sessionDisplayEl = document.getElementById("session-display");
 const rawPayloadEl = document.getElementById("raw-payload");
-const sessionCodeInput = document.getElementById("session-code");
-const createBtn = document.getElementById("create-session");
-const connectBtn = document.getElementById("connect-session");
-const copyBtn = document.getElementById("copy-join");
 
 const statMap = {
   name:     document.getElementById("stat-name"),
@@ -118,7 +114,11 @@ async function fetchState() {
     renderPayload(data.payload || {});
     updatedEl.textContent = formatUpdated(data.lastUpdated || 0);
     const age = Math.floor(Date.now() / 1000) - (data.lastUpdated || 0);
-    setStatus(age > STATUS_STALE_SECONDS ? "Not updating" : "Live", age > STATUS_STALE_SECONDS);
+    if (data.lastUpdated) {
+      setStatus(age > STATUS_STALE_SECONDS ? "Not updating" : "Live", age > STATUS_STALE_SECONDS);
+    } else {
+      setStatus("Waiting for data...", false);
+    }
   } catch {
     setStatus("Disconnected", true);
   }
@@ -130,40 +130,39 @@ function startPolling() {
   fetchState();
 }
 
-async function createSession() {
-  const res = await fetch("/api/session/create", { method: "POST" });
-  const data = await res.json();
-  if (data.code) {
-    setSessionCode(data.code);
-    joinUrlEl.textContent = `${location.origin}${data.joinUrl}`;
-  }
-}
-
 function setSessionCode(code) {
   currentCode = code.trim().toUpperCase();
-  sessionCodeInput.value = currentCode;
+  if (sessionDisplayEl) sessionDisplayEl.textContent = currentCode;
   localStorage.setItem("trackerSession", currentCode);
   startPolling();
 }
 
-function initFromStorage() {
-  const stored = localStorage.getItem("trackerSession");
-  if (stored) {
-    setSessionCode(stored);
-    joinUrlEl.textContent = `${location.origin}/session/${stored}`;
+async function init() {
+  // Try the most recently created session on the server first
+  try {
+    const res = await fetch("/api/sessions/latest");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.code) {
+        setSessionCode(data.code);
+        return;
+      }
+    }
+  } catch {
+    // fall through to create a new session
+  }
+
+  // No existing session — create one automatically
+  try {
+    const res = await fetch("/api/session/create", { method: "POST" });
+    const data = await res.json();
+    if (data.code) {
+      setSessionCode(data.code);
+    }
+  } catch {
+    setStatus("Disconnected", true);
+    if (sessionDisplayEl) sessionDisplayEl.textContent = "Error";
   }
 }
 
-createBtn?.addEventListener("click", createSession);
-connectBtn?.addEventListener("click", () => {
-  if (sessionCodeInput.value) {
-    setSessionCode(sessionCodeInput.value);
-    joinUrlEl.textContent = `${location.origin}/session/${currentCode}`;
-  }
-});
-copyBtn?.addEventListener("click", async () => {
-  const text = joinUrlEl.textContent;
-  if (text.startsWith("http")) await navigator.clipboard.writeText(text);
-});
-
-initFromStorage();
+init();
